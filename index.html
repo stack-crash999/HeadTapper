@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeadTapperClient | Next-Gen krunker Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-text-white {
+            background: linear-gradient(to right, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-text-hero {
+            background: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.5s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .icon-hover {
+            transition: transform 0.3s ease;
+        }
+        
+        .card-hover:hover .icon-hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #2563eb, #1d4ed8);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(31, 41, 55, 0.5);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #60a5fa;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .modal {
+            display: none;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .success-message {
+            display: none;
+        }
+        
+        .success-message.active {
+            display: flex;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-black text-white overflow-x-hidden">
+ 
+    <div class="fixed inset-0 opacity-15 grid-bg pointer-events-none"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-gray-800/50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+            <div class="flex items-center space-x-2">
+  <h1 class="text-xl sm:text-2xl text-blue-400 font-bold tracking-wider">DarkWire</h1>
+  <span class="text-sm text-slate-400"> Code by <span class="text-teal-400 font-semibold">HeadtapperDEV</span></span>
+  <span class="text-sm text-slate-400">  site <span class="text-teal-400 font-semibold">Darkdev</span></span>
+</div>
+
+
+   
+<nav class="hidden md:flex items-center space-x-8">
+  <a href="#features" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Features</a>
+  <a href="https://t.me/AboIesh" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Purchase</a>
+  <a href="#newsletter" class="text-gray-300 hover:text-blue-400 transition-colors font-medium">Newsletter</a>
+  <button class="btn-primary px-6 py-2 rounded-lg text-white font-medium shadow-lg shadow-blue-500/25 border-0">
+    <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+    </svg>
+    Download
+  </button>
+</nav>
+
+
+ 
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white">
+                <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+     
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-black/95 backdrop-blur-xl border-t border-gray-800/50">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#features" class="block text-gray-300 hover:text-blue-400 transition-colors">Features</a>
+                <a href="#getstarted" class="block text-gray-300 hover:text-blue-400 transition-colors">Get Started</a>
+                <a href="#newsletter" class="block text-gray-300 hover:text-blue-400 transition-colors">Newsletter</a>
+                <button class="w-full btn-primary px-6 py-3 rounded-lg text-white font-medium">
+                    <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="relative pt-20 pb-32 px-6">
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 bg-gray-900/50 backdrop-blur-sm rounded-full border border-gray-800/50 mb-8">
+                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                </svg>
+                <span class="text-sm text-gray-300">Next-Gen Software</span>
+            </div>
+
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+                <span class="gradient-text-white">High Performance.</span>
+                <br>
+                <span class="gradient-text-hero">Instant Injection.</span>
+            </h2>
+
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Fast, modern Cheats built to perform. Experience the next generation of Cheating Software with our cutting-edge platform designed for professionals.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" 
+                   class="btn-primary text-lg px-8 py-6 rounded-lg text-white font-medium shadow-2xl shadow-blue-500/25 border-0 group inline-flex items-center">
+                    Join Our Community
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+
+                <a href="https://t.me/AboIesh" target="_blank" rel="noopener noreferrer" 
+                   class="btn-secondary text-lg px-8 py-6 rounded-lg text-gray-300 font-medium inline-flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </section>
+
+  
+    <section id="features" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center px-4 py-2 bg-gray-900/50 backdrop-blur-sm rounded-full border border-gray-800/50 mb-6">
+                    <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span class="text-sm text-gray-300">Features</span>
+                </div>
+                <h3 class="text-4xl md:text-6xl font-bold mb-6 gradient-text-white">Everything you need to succeed</h3>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Powerful never before seen js injection exploit insures undetectability
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Enhanced Compatibility</h4>
+                    <p class="text-gray-400 leading-relaxed">Optimized to work across various platforms with minimal interference from AntiCheat and KPD.</p>
+                </div>
+
+              
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Unbannable</h4>
+                    <p class="text-gray-400 leading-relaxed">Our client lets you log into accounts even after they are banned and play normally</p>
+                </div>
+
+               
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <polygon points="12,2 2,7 12,12 22,7 12,2"></polygon>
+                            <polyline points="2,17 12,22 22,17"></polyline>
+                            <polyline points="2,12 12,17 22,12"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Modern Interface</h4>
+                    <p class="text-gray-400 leading-relaxed">Simple and clean UI for quick access and usability.</p>
+                </div>
+
+               
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <polyline points="23,4 23,10 17,10"></polyline>
+                            <polyline points="1,20 1,14 7,14"></polyline>
+                            <path d="m3,11 5,-5 4,4 5,-5"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Frequent Updates</h4>
+                    <p class="text-gray-400 leading-relaxed">Regular updates ensure optimal performance and stealth.</p>
+                </div>
+
+            
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <path d="M9 9h6v6H9z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Versatile Tools</h4>
+                    <p class="text-gray-400 leading-relaxed">Multiple built-in scripts based off KC for easy use.</p>
+                </div>
+
+               
+                <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                    <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-white">Fully Customizable</h4>
+                    <p class="text-gray-400 leading-relaxed">Easily configurable to match your preferences and playstyle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="getstarted" class="py-24 px-6 relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 bg-gray-900/50 backdrop-blur-sm rounded-full border border-gray-800/50 mb-6">
+                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+                <span class="text-sm text-gray-300">Get Started</span>
+            </div>
+            <h3 class="text-4xl md:text-6xl font-bold mb-12 gradient-text-white">Ready in 3 simple steps</h3>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+           
+                <div class="relative group">
+                    <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                        <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-lg">
+                            01
+                        </div>
+                        <h4 class="text-xl font-semibold mb-3 text-white">Subscribe</h4>
+                        <p class="text-gray-400">Subscribe to HeadTapper services and get instant access to our client.</p>
+                    </div>
+                    <svg class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-blue-400/50 w-8 h-8 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+
+         
+                <div class="relative group">
+                    <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                        <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-lg">
+                            02
+                        </div>
+                        <h4 class="text-xl font-semibold mb-3 text-white">Configure</h4>
+                        <p class="text-gray-400">Create your custom configurations to match your needs.</p>
+                    </div>
+                    <svg class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-blue-400/50 w-8 h-8 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+
+                <div class="relative group">
+                    <div class="card-hover bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 text-center">
+                        <div class="icon-hover w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-lg">
+                            03
+                        </div>
+                        <h4 class="text-xl font-semibold mb-3 text-white">Injection</h4>
+                        <p class="text-gray-400">Efficently inject into electron with our new JS exploit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <section id="newsletter" class="py-24 px-6 relative">
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 bg-gray-900/50 backdrop-blur-sm rounded-full border border-gray-800/50 mb-6">
+                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="m4 4 16 0 0 16-16 0z"></path>
+                    <path d="m22 6-10 7L2 6"></path>
+                </svg>
+                <span class="text-sm text-gray-300">Newsletter</span>
+            </div>
+            <h3 class="text-4xl md:text-6xl font-bold mb-6 gradient-text-white">Stay in the loop</h3>
+            <p class="text-xl text-gray-400 mb-8">
+                Get the latest updates, features, and news delivered to your inbox.
+            </p>
+
+            <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 max-w-md mx-auto">
+                <form id="newsletter-form" class="space-y-4">
+                    <input
+                        type="email"
+                        id="email-input"
+                        placeholder="Enter your email address"
+                        required
+                        class="w-full h-12 text-base bg-gray-800/50 border border-gray-700/50 text-white placeholder:text-gray-400 focus:border-blue-500 rounded-lg px-4 outline-none transition-colors"
+                    />
+                    <button
+                        type="submit"
+                        class="w-full btn-primary h-12 rounded-lg text-white font-medium shadow-lg shadow-blue-500/25 border-0 inline-flex items-center justify-center"
+                    >
+                        Subscribe
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="m4 4 16 0 0 16-16 0z"></path>
+                            <path d="m22 6-10 7L2 6"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <div id="success-message" class="success-message mt-4 items-center justify-center text-blue-400">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Thank you for subscribing!
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="py-24 px-6 relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 bg-gray-900/50 backdrop-blur-sm rounded-full border border-gray-800/50 mb-6">
+                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <span class="text-sm text-gray-300">Projects</span>
+            </div>
+            <h3 class="text-3xl font-bold mb-8 gradient-text-white">Explore our other projects</h3>
+
+            <button id="modal-btn" class="btn-secondary px-8 py-3 rounded-lg text-gray-300 font-medium inline-flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                View Projects
+            </button>
+        </div>
+    </section>
+
+ 
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-80 items-center justify-center z-50 p-4">
+        <div class="bg-gray-900 border border-gray-800 text-white rounded-xl p-6 w-full max-w-lg relative">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-lg font-semibold text-white">Other Projects</h4>
+                <button id="modal-close" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="bg-black text-blue-400 p-4 rounded-lg font-mono text-sm border border-gray-800">
+                github.com/stack-crash999
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="py-16 px-6 bg-black/80 backdrop-blur-sm border-t border-gray-800/50 relative">
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="flex items-center justify-center space-x-3 mb-8">
+                <h1 class="text-2xl font-bold gradient-text">DarkWire</h1>
+            </div>
+
+            <p class="text-gray-400 mb-8">Connect with us</p>
+
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="https://discord.com/users/2098498" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-400 hover:text-blue-400 transition-colors font-medium">
+                    Discord
+                </a>
+                <a href="https://t.me/AboIesh" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-400 hover:text-blue-400 transition-colors font-medium">
+                    Telegram
+                </a>
+            </div>
+
+            <div class="border-t border-gray-800/50 pt-8">
+                <p class="text-gray-500 text-sm">© 2025 DarkWire. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+       
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+      
+        const newsletterForm = document.getElementById('newsletter-form');
+        const emailInput = document.getElementById('email-input');
+        const successMessage = document.getElementById('success-message');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (emailInput.value.trim()) {
+                successMessage.classList.add('active');
+                emailInput.value = '';
+                setTimeout(() => {
+                    successMessage.classList.remove('active');
+                }, 4000);
+            }
+        });
+
+        
+        const modalBtn = document.getElementById('modal-btn');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modal-close');
+
+        modalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+       
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+     
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
